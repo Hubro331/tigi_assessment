@@ -26,4 +26,11 @@ class StringCalculatorTest < Minitest::Test
     assert_equal 13, StringCalculator.new("//;\n1;2,5\n3,2").calculate
   end
 
+  def test_string_contains_negative_numbers
+    calculator =  StringCalculator.new("//;\n1;2,5\n-3,-2")
+    assert_raises(StringCalculator::NegativeNumberError) do
+      calculator.calculate
+    end
+  end
+
 end

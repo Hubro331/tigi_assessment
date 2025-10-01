@@ -1,5 +1,7 @@
   class StringCalculator
 
+    class NegativeNumberError < StandardError; end
+
     BASE_REGEX = "\n|,"
 
     def initialize(string)
@@ -7,6 +9,12 @@
     end
 
     def calculate
+      neg_numbers =  @values.select { |v| v < 0}
+        
+      if neg_numbers.count > 0
+        raise NegativeNumberError.new("negatives not allowed #{neg_numbers}")
+      end
+
       @values.filter { |value| value < 1000 }.sum
     end
 
