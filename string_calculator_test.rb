@@ -18,4 +18,8 @@ class StringCalculatorTest < Minitest::Test
     assert_equal 5, StringCalculator.new('"",2,3').calculate
   end
 
+  def test_string_containing_new_lines
+    assert_equal 15, StringCalculator.new("10\n,1,4").calculate
+  end
+
 end

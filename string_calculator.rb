@@ -1,5 +1,5 @@
   class StringCalculator
-    
+
     def initialize(string)
       @values = parse_string(string)
     end
@@ -11,7 +11,7 @@
     private
 
     def parse_string(string)
-      string.split(',').map(&:to_i)
+      string.split(/\n|,/).map(&:to_i)
     end
 
   end
