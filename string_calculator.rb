@@ -15,7 +15,7 @@
         raise NegativeNumberError.new("negatives not allowed #{neg_numbers}")
       end
 
-      @values.filter { |value| value < 1000 }.sum
+      @values.filter { |value| value <= 1000 }.sum
     end
 
     private
