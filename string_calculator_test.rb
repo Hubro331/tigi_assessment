@@ -33,4 +33,8 @@ class StringCalculatorTest < Minitest::Test
     end
   end
 
+  def test_handle_multiple_delimiters
+    assert_equal 13,  StringCalculator.new("//[**][ll];\n1ll2,5\n3**2").calculate
+  end
+
 end

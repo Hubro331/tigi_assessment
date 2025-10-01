@@ -2,7 +2,7 @@
 
     class NegativeNumberError < StandardError; end
 
-    BASE_REGEX = "\n|,"
+    BASE_DELEMITERS = ["\n",","]
 
     def initialize(string)
       @values = parse_string(string)
@@ -21,15 +21,21 @@
     private
 
     def parse_string(string)
-      regex_str = BASE_REGEX
-      if string.match?(/\/\//)
-        delimiters = string.split("\n")
-        regex_str =  regex_str + "|" + delimiters[0].scan(/\/\/(.)/).flatten[0]
-        string = delimiters[1..-1].join("\n")
+      delimiters = BASE_DELEMITERS
+      
+      if string.match?(/\/\/\[/)
+        lines = string.split("\n")
+        delimiters =  delimiters  +  lines[0].scan(/\[(.*?)\]/).flatten
+        string = lines[1..-1].join("\n")
+      elsif string.match?(/\/\//)
+        lines = string.split("\n")
+        delimiters =  delimiters + lines[0].scan(/\/\/(.)/).flatten
+        string = lines[1..-1].join("\n")
       end
 
-      regex = Regexp.new(regex_str)
-      string.split(Regexp.new(regex)).map(&:to_i)
+      str_regex = delimiters.map  { |d| Regexp.escape(d) }.join("|")
+      regex = Regexp.new(str_regex)
+      string.split(regex).map(&:to_i)
     end
 
   end
