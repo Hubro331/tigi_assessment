@@ -22,4 +22,8 @@ class StringCalculatorTest < Minitest::Test
     assert_equal 15, StringCalculator.new("10\n,1,4").calculate
   end
 
+  def test_delimiter_string
+    assert_equal 13, StringCalculator.new("//;\n1;2,5\n3,2").calculate
+  end
+
 end
